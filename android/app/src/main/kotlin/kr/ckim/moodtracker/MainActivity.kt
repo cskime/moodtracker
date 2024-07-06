@@ -1,4 +1,4 @@
-package kr.co.cskime.moodtracker
+package kr.ckim.moodtracker
 
 import io.flutter.embedding.android.FlutterActivity
 
