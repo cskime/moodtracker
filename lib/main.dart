@@ -14,18 +14,18 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: MyApp(),
+      child: MoodtrackerApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MoodtrackerApp extends ConsumerWidget {
+  const MoodtrackerApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       theme: theme,
     );
   }

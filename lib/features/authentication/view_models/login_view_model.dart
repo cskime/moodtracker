@@ -17,18 +17,20 @@ class LoginViewModel extends AutoDisposeAsyncNotifier {
     _validationService = ValidationService();
   }
 
-  Future<void> login({
+  Future<bool> login({
     required String email,
     required String password,
   }) async {
     state = const AsyncValue.loading();
     await Future.delayed(const Duration(seconds: 1));
-    state = await AsyncValue.guard(() async {
+    final result = await AsyncValue.guard(() async {
       await _authRepository.signIn(
         email: email,
         password: password,
       );
     });
+    state = result;
+    return !result.hasError;
   }
 
   String? validateEmail(String? email) {
