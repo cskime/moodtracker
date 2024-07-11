@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moodtracker/features/authentication/view_models/login_view_model.dart';
 import 'package:moodtracker/features/authentication/views/sign_up_screen.dart';
 import 'package:moodtracker/features/authentication/views/widgets/email_password_form.dart';
-import 'package:moodtracker/features/write/views/write_screen.dart';
+import 'package:moodtracker/features/post/views/write_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = "login";

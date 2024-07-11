@@ -5,7 +5,7 @@ import 'package:moodtracker/features/authentication/views/login_screen.dart';
 import 'package:moodtracker/features/authentication/views/sign_up_screen.dart';
 import 'package:moodtracker/features/navigation/models/navigation_tab.dart';
 import 'package:moodtracker/features/navigation/views/main_navigation.dart';
-import 'package:moodtracker/features/write/views/write_screen.dart';
+import 'package:moodtracker/features/post/views/write_screen.dart';
 
 final routerProvider = Provider(
   (ref) => GoRouter(
