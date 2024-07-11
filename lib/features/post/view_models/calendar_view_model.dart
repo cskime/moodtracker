@@ -6,10 +6,9 @@ import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/repositories/post_repository.dart';
 
 final calendarViewModelProvider =
-    AsyncNotifierProvider.autoDispose<CalendarViewModel, List<Post>>(
-        CalendarViewModel.new);
+    AsyncNotifierProvider<CalendarViewModel, List<Post>>(CalendarViewModel.new);
 
-class CalendarViewModel extends AutoDisposeAsyncNotifier<List<Post>> {
+class CalendarViewModel extends AsyncNotifier<List<Post>> {
   late final AuthRepository _authRepository;
   late final PostRepository _postRepository;
 

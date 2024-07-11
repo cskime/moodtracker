@@ -37,49 +37,60 @@ class _WriteScreenState extends ConsumerState<WriteScreen> {
     final canPost =
         _descriptionEditingController.text.isNotEmpty && !state.isLoading;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "What's your emotion?",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-            child: TextField(
-              controller: _descriptionEditingController,
-              maxLines: null,
-              onChanged: (_) {
-                setState(() {});
-              },
-              decoration: const InputDecoration(
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.settings),
+          )
+        ],
+      ),
+      body: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "What's your emotion?",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          const Spacer(),
-          FilledButton(
-            onPressed: canPost ? _onPostPressed : null,
-            child: state.isLoading
-                ? const CircularProgressIndicator.adaptive()
-                : const Text("Post"),
-          ),
-        ],
+            const SizedBox(height: 16),
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              child: TextField(
+                controller: _descriptionEditingController,
+                maxLines: null,
+                onChanged: (_) {
+                  setState(() {});
+                },
+                decoration: const InputDecoration(
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            const Spacer(),
+            FilledButton(
+              onPressed: canPost ? _onPostPressed : null,
+              child: state.isLoading
+                  ? const CircularProgressIndicator.adaptive()
+                  : const Text("Post"),
+            ),
+          ],
+        ),
       ),
     );
   }

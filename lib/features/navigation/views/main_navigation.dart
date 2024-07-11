@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodtracker/features/post/views/calendar_screen.dart';
 import 'package:moodtracker/features/navigation/models/navigation_tab.dart';
+import 'package:moodtracker/features/post/views/calendar_screen.dart';
 import 'package:moodtracker/features/post/views/write_screen.dart';
 
 class MainNavigation extends ConsumerStatefulWidget {
@@ -29,14 +29,6 @@ class _MainNavigationState extends ConsumerState<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.settings),
-          )
-        ],
-      ),
       body: _currentIndex == 0 ? const WriteScreen() : const CalendarScreen(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

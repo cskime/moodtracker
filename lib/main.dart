@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/firebase_options.dart';
 import 'package:moodtracker/routers/router.dart';
-import 'package:moodtracker/themes/theme.dart';
+import 'package:moodtracker/themes/light_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MoodtrackerApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
-      theme: theme,
+      theme: lightTheme,
     );
   }
 }

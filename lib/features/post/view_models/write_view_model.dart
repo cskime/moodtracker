@@ -6,9 +6,9 @@ import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/repositories/post_repository.dart';
 
 final writeViewModelProvider =
-    AsyncNotifierProvider.autoDispose(WriteViewModel.new);
+    AsyncNotifierProvider(WriteViewModel.new);
 
-class WriteViewModel extends AutoDisposeAsyncNotifier {
+class WriteViewModel extends AsyncNotifier {
   late final AuthRepository _authRepository;
   late final PostRepository _postRepository;
 
