@@ -20,10 +20,11 @@ class PostRepository {
     await _collection(userId: post.userId).add(post);
   }
 
-  Future<List<Post>> fetchPosts({
+  Stream<List<Post>> fetchPosts({
     required String userId,
-  }) async {
-    final snapshot = await _collection(userId: userId).get();
-    return snapshot.docs.map((doc) => doc.data()).toList();
+  }) {
+    return _collection(userId: userId).snapshots().map(
+          (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
+        );
   }
 }
