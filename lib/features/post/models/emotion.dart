@@ -11,6 +11,16 @@ enum Emotion {
 
   static Emotion defaultValue = Emotion.excellent;
 
+  static Emotion? fromKey(String key) => switch (key) {
+        "solidFaceLaughBeam" => Emotion.excellent,
+        "solidFaceSmile" => Emotion.good,
+        "solidFaceMeh" => Emotion.normal,
+        "solidFaceSadTear" => Emotion.sad,
+        "solidFaceTired" => Emotion.annoying,
+        "solidFaceAngry" => Emotion.bad,
+        _ => null,
+      };
+
   String get key => switch (this) {
         Emotion.excellent => "solidFaceLaughBeam",
         Emotion.good => "solidFaceSmile",

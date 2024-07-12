@@ -23,16 +23,22 @@ class CalendarAppBarTitle extends StatelessWidget {
           onPressed: onLeftPressed,
           child: const Icon(
             FontAwesomeIcons.chevronLeft,
-            size: 16,
+            size: 14,
             color: Colors.black,
           ),
         ),
-        Text("${current.year}.${current.month}"),
+        Text(
+          "${current.year}.${current.month}",
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         CupertinoButton(
           onPressed: onRightPressed,
           child: const Icon(
             FontAwesomeIcons.chevronRight,
-            size: 16,
+            size: 14,
             color: Colors.black,
           ),
         ),

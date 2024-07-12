@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/post/view_models/calendar_view_model.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar_app_bar_title.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
@@ -15,7 +16,7 @@ class CalendarScreen extends ConsumerStatefulWidget {
 
 class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   late PageController _pageController;
-  final _focusedDay = DateTime.now();
+  var _focusedDay = DateTime.now();
   var _selectedDay = DateTime.now();
 
   void _movePrevMonth() {
@@ -23,6 +24,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
+    setState(() {});
   }
 
   void _moveNextMonth() {
@@ -30,6 +32,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
+    setState(() {});
   }
 
   void _onTodayPressed() {
@@ -47,6 +50,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _selectedDay = selectedDay;
+    });
+  }
+
+  void _onPageChanged(DateTime focusedDay) {
+    setState(() {
+      _focusedDay = focusedDay;
     });
   }
 
@@ -76,26 +85,17 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: state.when(
-            data: (data) => Column(
+            data: (posts) => Column(
               children: [
-                TableCalendar(
-                  focusedDay: _selectedDay,
-                  selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-                  firstDay: data.fold(
-                    DateTime.now(),
-                    (previousValue, element) =>
-                        previousValue.compareTo(element.date) > 0
-                            ? element.date
-                            : previousValue,
-                  ),
-                  lastDay: DateTime.now(),
-                  headerVisible: false,
-                  eventLoader: (day) =>
-                      data.where((post) => isSameDay(day, post.date)).toList(),
+                CalendarView(
+                  focusedDay: _focusedDay,
+                  selectedDay: _selectedDay,
+                  posts: posts,
                   onCalendarCreated: _onCalendarCreated,
                   onDaySelected: _onDaySelected,
+                  onPageChanged: _onPageChanged,
                 ),
-                ...data
+                ...posts
                     .where((post) => isSameDay(post.date, _selectedDay))
                     .map<Widget>((post) => Text(post.description)),
               ],
