@@ -9,6 +9,8 @@ enum Emotion {
   annoying,
   bad;
 
+  static Emotion defaultValue = Emotion.excellent;
+
   String get key => switch (this) {
         Emotion.excellent => "solidFaceLaughBeam",
         Emotion.good => "solidFaceSmile",

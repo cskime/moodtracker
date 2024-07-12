@@ -4,9 +4,11 @@ import 'package:moodtracker/features/post/models/emotion.dart';
 class EmotionCollection extends StatefulWidget {
   const EmotionCollection({
     super.key,
+    required this.initialValue,
     required this.onEmotionSelected,
   });
 
+  final Emotion initialValue;
   final void Function(Emotion emotion) onEmotionSelected;
 
   @override
@@ -14,7 +16,7 @@ class EmotionCollection extends StatefulWidget {
 }
 
 class _EmotionCollectionState extends State<EmotionCollection> {
-  var _currentData = Emotion.normal;
+  late var _currentData = widget.initialValue;
 
   void _onEmotionTap(Emotion data) {
     widget.onEmotionSelected(data);
