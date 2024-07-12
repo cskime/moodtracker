@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/post/view_models/calendar_view_model.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar_app_bar_title.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar_day_list.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -82,33 +83,33 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: state.when(
-            data: (posts) => Column(
-              children: [
-                CalendarView(
-                  focusedDay: _focusedDay,
-                  selectedDay: _selectedDay,
-                  posts: posts,
-                  onCalendarCreated: _onCalendarCreated,
-                  onDaySelected: _onDaySelected,
-                  onPageChanged: _onPageChanged,
-                ),
-                ...posts
-                    .where((post) => isSameDay(post.date, _selectedDay))
-                    .map<Widget>((post) => Text(post.description)),
-              ],
+      body: state.when(
+        data: (posts) => Column(
+          children: [
+            CalendarView(
+              focusedDay: _focusedDay,
+              selectedDay: _selectedDay,
+              posts: posts,
+              onCalendarCreated: _onCalendarCreated,
+              onDaySelected: _onDaySelected,
+              onPageChanged: _onPageChanged,
             ),
-            error: (error, stackTrace) => Center(
-              child: Text(
-                error.toString(),
+            Expanded(
+              child: CalendarDayList(
+                posts: posts
+                    .where((post) => isSameDay(post.date, _selectedDay))
+                    .toList(),
               ),
             ),
-            loading: () => const Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
+          ],
+        ),
+        error: (error, stackTrace) => Center(
+          child: Text(
+            error.toString(),
           ),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator.adaptive(),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moodtracker/features/post/views/widgets/description_box.dart';
 
 class EmotionDescriptionInput extends StatelessWidget {
   const EmotionDescriptionInput({
@@ -12,16 +13,7 @@ class EmotionDescriptionInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
+    return DescriptionBox(
       child: TextField(
         controller: controller,
         maxLines: null,

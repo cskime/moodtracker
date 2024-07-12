@@ -15,8 +15,11 @@ class CalendarEventCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          isSelected ? BoxDecoration(border: Border.all(width: 2)) : null,
+      decoration: isSelected
+          ? BoxDecoration(
+              border: Border.all(width: 4, color: Colors.indigo.shade900),
+            )
+          : null,
       child: Stack(
         children: [
           if (flexibleBoxes.isNotEmpty)
