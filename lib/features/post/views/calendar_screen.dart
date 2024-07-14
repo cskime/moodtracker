@@ -40,6 +40,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   void _onTodayPressed() {
     setState(() {
+      _focusedDay = DateTime.now();
       _selectedDay = DateTime.now();
     });
   }
