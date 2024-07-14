@@ -29,4 +29,8 @@ class AuthRepository {
       password: password,
     );
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

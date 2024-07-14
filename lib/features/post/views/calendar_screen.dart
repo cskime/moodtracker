@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/view_models/calendar_view_model.dart';
+import 'package:moodtracker/features/post/views/widgets/base_scaffold.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar/calendar_app_bar_title.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar/calendar_day_list.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar/calendar_view.dart';
@@ -46,8 +47,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     });
   }
 
-  void _onSettingPressed() {}
-
   void _onCalendarCreated(PageController pageController) {
     _pageController = pageController;
   }
@@ -81,27 +80,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         );
         final lastDay = DateTime.now();
 
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: CalendarAppBarTitle(
-              current: _focusedDay,
-              hasNext: !isSameMonth(_focusedDay, lastDay),
-              hasPrev: !isSameMonth(_focusedDay, firstDay),
-              onLeftPressed: _movePrevMonth,
-              onRightPressed: _moveNextMonth,
-            ),
-            actions: [
-              IconButton(
-                onPressed: _onTodayPressed,
-                icon: const Icon(Icons.today),
-              ),
-              IconButton(
-                onPressed: _onSettingPressed,
-                icon: const Icon(Icons.settings),
-              ),
-            ],
+        return BaseScaffold(
+          appBarTitle: CalendarAppBarTitle(
+            current: _focusedDay,
+            hasNext: !isSameMonth(_focusedDay, lastDay),
+            hasPrev: !isSameMonth(_focusedDay, firstDay),
+            onLeftPressed: _movePrevMonth,
+            onRightPressed: _moveNextMonth,
           ),
+          appBarActions: [
+            IconButton(
+              onPressed: _onTodayPressed,
+              icon: const Icon(Icons.today),
+            ),
+          ],
           body: Column(
             children: [
               CalendarView(

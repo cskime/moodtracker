@@ -38,15 +38,23 @@ class _CalendarDayListState extends State<CalendarDayList> {
 
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            CalendarDayListEditButton(
-              editing: _editMode,
-              onPressed: _onEditPressed,
-            ),
-            const SizedBox(width: 24),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "EVENTS",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              CalendarDayListEditButton(
+                editing: _editMode,
+                onPressed: _onEditPressed,
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: ListView.separated(

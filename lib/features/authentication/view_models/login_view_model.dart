@@ -22,7 +22,6 @@ class LoginViewModel extends AutoDisposeAsyncNotifier {
     required String password,
   }) async {
     state = const AsyncValue.loading();
-    await Future.delayed(const Duration(seconds: 1));
     final result = await AsyncValue.guard(() async {
       await _authRepository.signIn(
         email: email,

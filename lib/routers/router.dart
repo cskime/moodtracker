@@ -13,6 +13,9 @@ final routerProvider = Provider(
     redirect: (context, state) {
       final loggedIn = ref.read(authRepositoryProvider).loggedIn;
 
+      print(loggedIn);
+      print(state.fullPath);
+
       if (!loggedIn &&
           state.fullPath != LoginScreen.routeUrl &&
           state.fullPath != SignUpScreen.routeUrl) {

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/navigation/models/navigation_tab.dart';
 import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/view_models/write_view_model.dart';
+import 'package:moodtracker/features/post/views/widgets/base_scaffold.dart';
 import 'package:moodtracker/features/post/views/widgets/write/emotion_collection.dart';
 import 'package:moodtracker/features/post/views/widgets/write/emotion_description_input.dart';
 import 'package:moodtracker/features/post/views/widgets/write/submit_button.dart';
@@ -61,15 +62,7 @@ class _WriteScreenState extends ConsumerState<WriteScreen> {
 
     return GestureDetector(
       onTap: _onTap,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.settings),
-            )
-          ],
-        ),
+      child: BaseScaffold(
         body: Padding(
           padding:
               const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 8),
