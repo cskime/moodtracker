@@ -17,7 +17,10 @@ class PostRepository {
       );
 
   Future<void> createPost(Post post) async {
-    await _collection(userId: post.userId).add(post);
+    final document = await _collection(userId: post.userId).add(post);
+    await _collection(userId: post.userId)
+        .doc(document.id)
+        .update({"id": document.id});
   }
 
   Stream<List<Post>> fetchPosts({
@@ -26,5 +29,9 @@ class PostRepository {
     return _collection(userId: userId).snapshots().map(
           (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
         );
+  }
+
+  Future<void> deletePost(Post post) async {
+    await _collection(userId: post.userId).doc(post.id).delete();
   }
 }

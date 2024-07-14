@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/view_models/calendar_view_model.dart';
-import 'package:moodtracker/features/post/views/widgets/calendar_app_bar_title.dart';
-import 'package:moodtracker/features/post/views/widgets/calendar_day_list.dart';
-import 'package:moodtracker/features/post/views/widgets/calendar_view.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar/calendar_app_bar_title.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar/calendar_day_list.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar/calendar_view.dart';
 import 'package:moodtracker/utils/date_time_comparator.dart' as date_comparator;
 import 'package:moodtracker/utils/date_time_comparator.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -63,6 +64,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     });
   }
 
+  void _onDeletePressed(Post post) async {
+    await ref.read(calendarViewModelProvider.notifier).deletePost(post);
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(calendarViewModelProvider);
@@ -114,6 +119,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   posts: posts
                       .where((post) => isSameDay(post.date, _selectedDay))
                       .toList(),
+                  onDeletePressed: _onDeletePressed,
                 ),
               ),
             ],

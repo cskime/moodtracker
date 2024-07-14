@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/navigation/models/navigation_tab.dart';
 import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/view_models/write_view_model.dart';
-import 'package:moodtracker/features/post/views/widgets/emotion_collection.dart';
-import 'package:moodtracker/features/post/views/widgets/emotion_description_input.dart';
-import 'package:moodtracker/features/post/views/widgets/submit_button.dart';
+import 'package:moodtracker/features/post/views/widgets/write/emotion_collection.dart';
+import 'package:moodtracker/features/post/views/widgets/write/emotion_description_input.dart';
+import 'package:moodtracker/features/post/views/widgets/write/submit_button.dart';
 
 class WriteScreen extends ConsumerStatefulWidget {
   static final routeUrl = "/${NavigationTab.write.name}";

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/models/post.dart';
-import 'package:moodtracker/features/post/views/widgets/calendar_cell.dart';
-import 'package:moodtracker/features/post/views/widgets/calendar_event_cell.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar/calendar_cell.dart';
+import 'package:moodtracker/features/post/views/widgets/calendar/calendar_event_cell.dart';
 import 'package:moodtracker/utils/date_range.dart';
 import 'package:table_calendar/table_calendar.dart';
 
