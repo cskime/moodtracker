@@ -67,6 +67,14 @@ class CalendarView extends StatelessWidget {
     DateTime focusedDay,
     bool isSelected,
   ) {
+    if (posts.isEmpty) {
+      return CalendarCell(
+        day: day.day,
+        isSelected: isSelected,
+        isEnabled: false,
+      );
+    }
+
     final matchedPosts = posts.where((post) => isSameDay(post.date, day));
     if (matchedPosts.isEmpty) {
       final range = DateRange.fromList(posts.map((post) => post.date).toList());
