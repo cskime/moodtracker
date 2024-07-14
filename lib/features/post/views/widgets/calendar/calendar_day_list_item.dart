@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/models/post.dart';
-import 'package:moodtracker/features/post/views/widgets/write/description_box.dart';
+import 'package:moodtracker/features/post/views/widgets/description_box.dart';
 
 class CalendarDayListItem extends StatelessWidget {
   const CalendarDayListItem({

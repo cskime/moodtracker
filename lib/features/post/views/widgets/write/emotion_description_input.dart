@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodtracker/features/post/views/widgets/write/description_box.dart';
+import 'package:moodtracker/features/post/views/widgets/description_box.dart';
 
 class EmotionDescriptionInput extends StatefulWidget {
   const EmotionDescriptionInput({

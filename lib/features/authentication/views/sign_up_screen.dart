@@ -56,10 +56,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   emailValidator: _viewModel.validateEmail,
                   passwordController: passwordController,
                   passwordValidator: _viewModel.validatePassword,
+                  submitTitle: "Sign up",
                   onSubmitPressed: state.isLoading ? null : _onSignUpPressed,
-                  submitChild: state.isLoading
-                      ? const CircularProgressIndicator.adaptive()
-                      : const Text("Sign up"),
+                  loading: state.isLoading,
                 ),
                 if (!state.isLoading && state.hasError)
                   Padding(
@@ -72,7 +71,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   ),
                 TextButton(
                   onPressed: () => _goToLoginPressed(context),
-                  child: const Text("Go to Login"),
+                  child: const Text(
+                    "Go to Login",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ],
             ),
