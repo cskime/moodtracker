@@ -23,7 +23,7 @@ class DescriptionBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
