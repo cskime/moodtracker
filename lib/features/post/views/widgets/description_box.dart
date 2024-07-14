@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DescriptionBox extends StatelessWidget {
   const DescriptionBox({
@@ -10,10 +11,10 @@ class DescriptionBox extends StatelessWidget {
   final Widget child;
   final DateTime? date;
 
-  String _timeStringFromDate(DateTime date) {
-    final hours = "${date.hour}".padLeft(2, "0");
-    final minutes = "${date.minute}".padLeft(2, "0");
-    return "$hours:$minutes";
+  String _timeStringFromDate(BuildContext context, DateTime date) {
+    final use24HourFormat = MediaQuery.of(context).alwaysUse24HourFormat;
+    final dateFormat = use24HourFormat ? DateFormat.Hm() : DateFormat.jm();
+    return dateFormat.format(date);
   }
 
   @override
@@ -38,7 +39,7 @@ class DescriptionBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  _timeStringFromDate(date!),
+                  _timeStringFromDate(context, date!),
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontSize: 12,
