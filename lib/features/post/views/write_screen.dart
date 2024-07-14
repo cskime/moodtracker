@@ -77,9 +77,9 @@ class _WriteScreenState extends ConsumerState<WriteScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "What's your emotion?",
+                "How do you feel now?",
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -6,13 +6,20 @@ class CalendarAppBarTitle extends StatelessWidget {
   const CalendarAppBarTitle({
     super.key,
     required this.current,
+    required this.hasNext,
+    required this.hasPrev,
     this.onLeftPressed,
     this.onRightPressed,
   });
 
   final DateTime current;
+  final bool hasNext;
+  final bool hasPrev;
   final void Function()? onLeftPressed;
   final void Function()? onRightPressed;
+
+  Color color(bool isEnabled) =>
+      isEnabled ? Colors.black : Colors.grey.shade400;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +27,11 @@ class CalendarAppBarTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         CupertinoButton(
-          onPressed: onLeftPressed,
-          child: const Icon(
+          onPressed: hasPrev ? onLeftPressed : null,
+          child: Icon(
             FontAwesomeIcons.chevronLeft,
             size: 14,
-            color: Colors.black,
+            color: color(hasPrev),
           ),
         ),
         Text(
@@ -35,11 +42,11 @@ class CalendarAppBarTitle extends StatelessWidget {
           ),
         ),
         CupertinoButton(
-          onPressed: onRightPressed,
-          child: const Icon(
+          onPressed: hasNext ? onRightPressed : null,
+          child: Icon(
             FontAwesomeIcons.chevronRight,
             size: 14,
-            color: Colors.black,
+            color: color(hasNext),
           ),
         ),
       ],

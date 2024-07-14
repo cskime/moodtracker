@@ -11,6 +11,8 @@ class CalendarView extends StatelessWidget {
     super.key,
     required this.focusedDay,
     required this.selectedDay,
+    required this.firstDay,
+    required this.lastDay,
     required this.posts,
     this.onCalendarCreated,
     this.onDaySelected,
@@ -19,6 +21,8 @@ class CalendarView extends StatelessWidget {
 
   final DateTime focusedDay;
   final DateTime selectedDay;
+  final DateTime firstDay;
+  final DateTime lastDay;
   final List<Post> posts;
   final void Function(PageController controller)? onCalendarCreated;
   final void Function(DateTime selected, DateTime focusedDay)? onDaySelected;
@@ -87,13 +91,8 @@ class CalendarView extends StatelessWidget {
       selectedDayPredicate: (day) {
         return isSameDay(day, selectedDay);
       },
-      firstDay: posts.fold(
-        DateTime.now(),
-        (previousValue, element) => previousValue.compareTo(element.date) > 0
-            ? element.date
-            : previousValue,
-      ),
-      lastDay: DateTime.now(),
+      firstDay: firstDay,
+      lastDay: lastDay,
       headerVisible: false,
       onCalendarCreated: onCalendarCreated,
       onDaySelected: onDaySelected,
