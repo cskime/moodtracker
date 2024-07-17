@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/views/widgets/description_box.dart';
 
@@ -19,7 +18,6 @@ class CalendarDayListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emotion = Emotion.fromKey(post.emotion);
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,8 +26,8 @@ class CalendarDayListItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 2),
             child: Icon(
-              emotion!.icon,
-              color: emotion.tintColor,
+              post.emotion.icon,
+              color: post.emotion.tintColor,
               size: 28,
             ),
           ),

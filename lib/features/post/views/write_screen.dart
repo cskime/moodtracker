@@ -39,7 +39,7 @@ class _WriteScreenState extends ConsumerState<WriteScreen> {
 
   void _onPostPressed() async {
     await _viewModel.addPost(
-      emotion: _currentEmotion.key,
+      emotion: _currentEmotion,
       description: _description,
     );
     _description = "";

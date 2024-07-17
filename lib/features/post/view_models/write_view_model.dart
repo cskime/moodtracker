@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/authentication/repositories/auth_repository.dart';
+import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/repositories/post_repository.dart';
 
@@ -18,7 +19,7 @@ class WriteViewModel extends AsyncNotifier {
   }
 
   Future<void> addPost({
-    required String emotion,
+    required Emotion emotion,
     required String description,
   }) async {
     state = const AsyncValue.loading();

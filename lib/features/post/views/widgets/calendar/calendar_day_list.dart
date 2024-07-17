@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moodtracker/features/post/models/emotion.dart';
 import 'package:moodtracker/features/post/models/post.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar/calendar_day_list_edit_button.dart';
 import 'package:moodtracker/features/post/views/widgets/calendar/calendar_day_list_item.dart';
@@ -27,11 +26,7 @@ class _CalendarDayListState extends State<CalendarDayList> {
 
   @override
   Widget build(BuildContext context) {
-    final validPosts = widget.posts
-        .where(
-          (post) => Emotion.fromKey(post.emotion) != null,
-        )
-        .toList()
+    final sortedPosts = widget.posts
       ..sort(
         (a, b) => b.date.compareTo(a.date),
       );
@@ -59,9 +54,9 @@ class _CalendarDayListState extends State<CalendarDayList> {
         Expanded(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            itemCount: validPosts.length,
+            itemCount: sortedPosts.length,
             itemBuilder: (context, index) {
-              final post = validPosts[index];
+              final post = sortedPosts[index];
               return CalendarDayListItem(
                 post: post,
                 editMode: _editMode,

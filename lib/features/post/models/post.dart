@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:moodtracker/features/post/models/emotion.dart';
 
 class Post {
   Post({
@@ -11,7 +12,7 @@ class Post {
 
   final String id;
   final String userId;
-  final String emotion;
+  final Emotion emotion;
   final String description;
   final DateTime date;
 
@@ -19,20 +20,20 @@ class Post {
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
-    final data = snapshot.data();
+    final data = snapshot.data() ?? {};
     return Post(
-      id: data?["id"],
-      userId: data?["userId"],
-      emotion: data?["emotion"],
-      description: data?["description"],
-      date: (data?["date"] as Timestamp).toDate(),
+      id: data["id"] ??= "",
+      userId: data["userId"] ??= "",
+      emotion: Emotion.fromKey((data["emotion"] ??= "")) ?? Emotion.excellent,
+      description: data["description"] ??= "",
+      date: ((data["date"] ??= Timestamp.now()) as Timestamp).toDate(),
     );
   }
 
   Map<String, Object?> toFirestore() => {
         if (id.isNotEmpty) "id": id,
         "userId": userId,
-        "emotion": emotion,
+        "emotion": emotion.key,
         "description": description,
         "date": Timestamp.fromDate(date),
       };

@@ -32,13 +32,8 @@ class CalendarView extends StatelessWidget {
     Map<Emotion, int> result = {};
 
     for (var post in posts) {
-      final emotion = Emotion.fromKey(post.emotion);
-      if (emotion == null) {
-        continue;
-      }
-
       result.update(
-        emotion,
+        post.emotion,
         (value) => value + 1,
         ifAbsent: () => 1,
       );
