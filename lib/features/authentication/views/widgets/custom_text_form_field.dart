@@ -6,12 +6,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.validator,
     required this.hintText,
+    this.errorText,
     this.obscureText = false,
   });
 
   final TextEditingController controller;
   final String? Function(String? text) validator;
   final String hintText;
+  final String? errorText;
   final bool obscureText;
 
   @override
@@ -25,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
-        // hintText: hintText,
+        errorText: errorText,
         labelText: hintText,
         labelStyle: TextStyle(color: Colors.grey.shade600),
         floatingLabelBehavior: FloatingLabelBehavior.auto,

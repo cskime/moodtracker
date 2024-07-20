@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moodtracker/features/authentication/errors/login_exception.dart';
 import 'package:moodtracker/features/authentication/view_models/login_view_model.dart';
 import 'package:moodtracker/features/authentication/views/sign_up_screen.dart';
 import 'package:moodtracker/features/authentication/views/widgets/email_password_form.dart';
 import 'package:moodtracker/features/post/views/write_screen.dart';
+import 'package:moodtracker/utils/cast.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = "login";
@@ -58,18 +60,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 EmailPasswordForm(
                   emailController: emailController,
+                  emailErrorText: state.error
+                      ?.asOrNull<InvalidEmailLoginException>()
+                      ?.message,
                   emailValidator: _viewModel.validateEmail,
                   passwordController: passwordController,
+                  passwordErrorText: state.error
+                      ?.asOrNull<InvalidPasswordLoginException>()
+                      ?.message,
                   passwordValidator: _viewModel.validatePassword,
                   submitTitle: "Login",
                   onSubmitPressed: state.isLoading ? null : _onLoginPressed,
                   loading: state.isLoading,
                 ),
-                if (!state.isLoading && state.hasError)
+                if (!state.isLoading && state.error is LoginException)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      state.error!.toString(),
+                      state.error?.asOrNull<LoginException>()?.message ??
+                          "Unknown Error",
                       style: const TextStyle(color: Colors.red),
                       textAlign: TextAlign.center,
                     ),
