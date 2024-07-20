@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +26,31 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 
   void _onSignUpPressed(String email, String password) async {
-    await _viewModel.signUp(email: email, password: password);
+    try {
+      await _viewModel.signUp(email: email, password: password);
+
+      if (mounted) {
+        await showAdaptiveDialog(
+          context: context,
+          builder: (context) => AlertDialog.adaptive(
+            title: const Text("Sign up complete!"),
+            content: const Text("Go to the sign in page and continue"),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text("Go to sign in"),
+                onPressed: () => context.pop(),
+              ),
+            ],
+          ),
+        );
+
+        if (mounted) {
+          context.pop();
+        }
+      }
+    } catch (e) {
+      return;
+    }
   }
 
   void _goToLoginPressed(BuildContext context) {

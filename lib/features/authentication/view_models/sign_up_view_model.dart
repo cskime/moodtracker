@@ -22,12 +22,17 @@ class SignUpViewModel extends AutoDisposeAsyncNotifier {
     required String password,
   }) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await _authRepository.createUser(
+
+    try {
+      final credential = await _authRepository.createUser(
         email: email,
         password: password,
       );
-    });
+      state = AsyncValue.data(credential);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace);
+      rethrow;
+    }
   }
 
   String? validateEmail(String? email) {
