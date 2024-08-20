@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodtracker/features/authentication/repositories/auth_repository.dart';
-import 'package:moodtracker/features/authentication/views/login_screen.dart';
-import 'package:moodtracker/features/authentication/views/sign_up_screen.dart';
-import 'package:moodtracker/features/navigation/models/navigation_tab.dart';
-import 'package:moodtracker/features/navigation/views/main_navigation.dart';
-import 'package:moodtracker/features/post/views/write_screen.dart';
+import 'package:moodtracker/features/authentication/data/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
+import 'package:moodtracker/features/authentication/presentation/views/sign_up_screen.dart';
+import 'package:moodtracker/features/navigation/navigation_tab.dart';
+import 'package:moodtracker/features/navigation/main_navigation.dart';
+import 'package:moodtracker/features/post/presentation/views/write_screen.dart';
 
 final routerProvider = Provider(
   (ref) => GoRouter(
