@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/authentication/data/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:moodtracker/features/authentication/presentation/utils/validation_service.dart';
 
 final loginViewModelProvider =

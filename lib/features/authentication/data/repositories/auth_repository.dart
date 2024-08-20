@@ -1,49 +1,47 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moodtracker/features/authentication/domain/entities/login_exception.dart';
+import 'package:moodtracker/features/authentication/data/providers/auth_provider/auth_provider.dart';
+import 'package:moodtracker/features/authentication/data/providers/auth_provider/firebase_auth_provider.dart';
+import 'package:moodtracker/features/authentication/domain/entities/app_user.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 
-final authRepositoryProvider = Provider((ref) => AuthRepository());
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => AuthRepositoryImpl(authProvider: FirebaseAuthProvider()),
+);
 
-class AuthRepository {
-  final _auth = FirebaseAuth.instance;
+class AuthRepositoryImpl extends AuthRepository {
+  AuthRepositoryImpl({
+    required this.authProvider,
+  });
 
-  User? get user => _auth.currentUser;
+  final AuthProvider authProvider;
 
-  bool get loggedIn => user != null;
+  @override
+  AppUser? get user => authProvider.loggedInUser;
 
-  Future<UserCredential> createUser({
+  @override
+  Future<void> createUser({
     required String email,
     required String password,
   }) async {
-    return await _auth.createUserWithEmailAndPassword(
+    await authProvider.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
+  @override
   Future<void> signIn({
     required String email,
     required String password,
   }) async {
-    try {
-      await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (error) {
-      if (error.code == "invalid-email") {
-        throw InvalidEmailLoginException("Email doesn't exist.");
-      }
-
-      if (error.code == "invalid-credential") {
-        throw InvalidPasswordLoginException("Wrong password.");
-      }
-
-      throw LoginException(error.message ?? "Unknown error");
-    }
+    await authProvider.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
+  @override
   Future<void> signOut() async {
-    await _auth.signOut();
+    await authProvider.signOut();
   }
 }

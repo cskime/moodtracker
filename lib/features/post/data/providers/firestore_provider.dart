@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:moodtracker/features/post/data/providers/database_provider.dart';
 import 'package:moodtracker/features/post/domain/entities/post.dart';
 
-final postRepositoryProvider = Provider((ref) => PostRepository());
-
-class PostRepository {
-  final FirebaseFirestore _database = FirebaseFirestore.instance;
+class FirestoreProvider extends DatabaseProvider {
+  final _database = FirebaseFirestore.instance;
 
   CollectionReference<Post> _collection({required String userId}) => _database
       .collection("users")
@@ -16,6 +14,7 @@ class PostRepository {
         toFirestore: (value, options) => value.toFirestore(),
       );
 
+  @override
   Future<void> createPost(Post post) async {
     final document = await _collection(userId: post.userId).add(post);
     await _collection(userId: post.userId)
@@ -23,15 +22,15 @@ class PostRepository {
         .update({"id": document.id});
   }
 
-  Stream<List<Post>> fetchPosts({
-    required String userId,
-  }) {
+  @override
+  Future<void> deletePost(Post post) async {
+    await _collection(userId: post.userId).doc(post.id).delete();
+  }
+
+  @override
+  Stream<List<Post>> fetchPostsByUserId(String userId) {
     return _collection(userId: userId).snapshots().map(
           (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
         );
-  }
-
-  Future<void> deletePost(Post post) async {
-    await _collection(userId: post.userId).doc(post.id).delete();
   }
 }

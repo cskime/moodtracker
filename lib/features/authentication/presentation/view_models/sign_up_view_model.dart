@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/authentication/data/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:moodtracker/features/authentication/presentation/utils/validation_service.dart';
 
 final signUpViewModelProvider =
@@ -24,11 +25,11 @@ class SignUpViewModel extends AutoDisposeAsyncNotifier {
     state = const AsyncValue.loading();
 
     try {
-      final credential = await _authRepository.createUser(
+      await _authRepository.createUser(
         email: email,
         password: password,
       );
-      state = AsyncValue.data(credential);
+      state = const AsyncValue.data(());
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);
       rethrow;
