@@ -16,7 +16,7 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthProvider authProvider;
 
   @override
-  AppUser? get user => authProvider.loggedInUser;
+  AppUser? get user => authProvider .loggedInUser;
 
   @override
   Future<void> createUser({

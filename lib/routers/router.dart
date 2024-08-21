@@ -1,17 +1,17 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moodtracker/features/authentication/data/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
 import 'package:moodtracker/features/authentication/presentation/views/sign_up_screen.dart';
-import 'package:moodtracker/features/navigation/navigation_tab.dart';
 import 'package:moodtracker/features/navigation/main_navigation.dart';
+import 'package:moodtracker/features/navigation/navigation_tab.dart';
 import 'package:moodtracker/features/post/presentation/views/write_screen.dart';
 
-final routerProvider = Provider(
-  (ref) => GoRouter(
+abstract final class AppRouter {
+  static final router = GoRouter(
     initialLocation: WriteScreen.routeUrl,
     redirect: (context, state) {
-      final loggedIn = ref.read(authRepositoryProvider).loggedIn;
+      final loggedIn = context.read<AuthRepository>().loggedIn;
 
       if (!loggedIn &&
           state.fullPath != LoginScreen.routeUrl &&
@@ -39,5 +39,5 @@ final routerProvider = Provider(
         ),
       ),
     ],
-  ),
-);
+  );
+}
