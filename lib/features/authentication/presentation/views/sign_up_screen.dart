@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodtracker/features/authentication/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:moodtracker/features/authentication/presentation/views/widgets/email_password_form.dart';
+import 'package:moodtracker/utils/navigator_extension.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -30,20 +31,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
           actions: [
             CupertinoDialogAction(
               child: const Text("Continue"),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
             ),
           ],
         ),
       );
 
       if (mounted) {
-        Navigator.of(context).pop();
+        context.pop();
       }
     }
   }
 
   void _goToLoginPressed(BuildContext context) {
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override

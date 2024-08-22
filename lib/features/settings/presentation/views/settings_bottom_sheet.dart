@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moodtracker/features/settings/presentation/view_models/settings_view_model.dart';
+import 'package:moodtracker/utils/navigator_extension.dart';
 
 class SettingsBottomSheet extends ConsumerWidget {
   const SettingsBottomSheet({super.key});
 
   void _onLogOutTap(BuildContext context, WidgetRef ref) async {
     ref.read(settingsViewModelProvider.notifier).logOut();
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:moodtracker/features/authentication/presentation/blocs/login/log
 import 'package:moodtracker/features/authentication/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:moodtracker/features/authentication/presentation/views/sign_up_screen.dart';
 import 'package:moodtracker/features/authentication/presentation/views/widgets/email_password_form.dart';
+import 'package:moodtracker/utils/navigator_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "login";
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _goToSignUpPressed() {
-    Navigator.of(context).push(
+    context.push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) => BlocProvider(
