@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodtracker/features/app/blocs/app_bloc.dart';
-import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:moodtracker/features/authentication/presentation/blocs/login_cubit.dart';
-import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
 import 'package:moodtracker/features/app/views/navigation/main_navigation.dart';
-import 'package:moodtracker/features/app/views/navigation/navigation_tab.dart';
-import 'package:moodtracker/features/post/presentation/views/write_screen.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/presentation/blocs/login/login_cubit.dart';
+import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
 import 'package:moodtracker/themes/light_theme.dart';
 
 class MoodtrackerApp extends StatelessWidget {
@@ -21,12 +19,8 @@ class MoodtrackerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
       create: (context) => authRepository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => AppBloc(authRepository: authRepository),
-          ),
-        ],
+      child: BlocProvider(
+        create: (context) => AppBloc(authRepository: authRepository),
         child: MaterialApp(
           theme: lightTheme,
           home: BlocSelector<AppBloc, AppState, AppStatus>(

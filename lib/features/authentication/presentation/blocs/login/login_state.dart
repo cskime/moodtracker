@@ -8,11 +8,12 @@ enum LoginStatus {
 }
 
 class LoginState {
-  LoginState._(
-      {required this.status,
-      this.emailErrorMessage,
-      this.passwordErrorMessage,
-      this.errorMessage});
+  LoginState._({
+    required this.status,
+    this.emailErrorMessage,
+    this.passwordErrorMessage,
+    this.errorMessage,
+  });
 
   LoginState.initial() : this._(status: LoginStatus.initial);
   LoginState.loading() : this._(status: LoginStatus.loading);

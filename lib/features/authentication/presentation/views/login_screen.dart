@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:moodtracker/features/authentication/presentation/blocs/login_cubit.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:moodtracker/features/authentication/presentation/blocs/login/login_cubit.dart';
+import 'package:moodtracker/features/authentication/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:moodtracker/features/authentication/presentation/views/sign_up_screen.dart';
 import 'package:moodtracker/features/authentication/presentation/views/widgets/email_password_form.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends StatefulWidget {
   static const routeName = "login";
   static const routeUrl = "/login";
 
   const LoginScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -29,7 +29,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _goToSignUpPressed() {
-    context.pushNamed(SignUpScreen.routeName);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => BlocProvider(
+          create: (context) => SignUpCubit(
+            authRepository: context.read<AuthRepository>(),
+          ),
+          child: const SignUpScreen(),
+        ),
+      ),
+    );
   }
 
   @override
