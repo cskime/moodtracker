@@ -20,7 +20,7 @@ class CalendarViewModel extends StreamNotifier<List<Post>> {
     _authRepository = ref.read(authRepositoryProvider);
     _postRepository = ref.read(postRepositoryProvider);
 
-    return _postRepository.fetchPosts(userId: _authRepository.user!.id);
+    return _postRepository.fetchPosts(userId: _authRepository.currentUser.id);
   }
 
   Future<void> deletePost(Post post) async {

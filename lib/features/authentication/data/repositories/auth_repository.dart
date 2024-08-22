@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moodtracker/features/authentication/data/providers/auth_provider/auth_provider.dart';
-import 'package:moodtracker/features/authentication/data/providers/auth_provider/firebase_auth_provider.dart';
+import 'package:moodtracker/features/authentication/data/data_providers/auth_provider/auth_provider.dart';
+import 'package:moodtracker/features/authentication/data/data_providers/auth_provider/firebase_auth_provider.dart';
 import 'package:moodtracker/features/authentication/domain/entities/app_user.dart';
 import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 
@@ -16,7 +16,10 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthProvider authProvider;
 
   @override
-  AppUser? get user => authProvider .loggedInUser;
+  Stream<AppUser> get user => authProvider.user;
+
+  @override
+  AppUser get currentUser => authProvider.currentUser;
 
   @override
   Future<void> createUser({

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
-import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
 import 'package:moodtracker/features/settings/presentation/view_models/settings_view_model.dart';
 
 class SettingsBottomSheet extends ConsumerWidget {
@@ -10,7 +8,7 @@ class SettingsBottomSheet extends ConsumerWidget {
 
   void _onLogOutTap(BuildContext context, WidgetRef ref) async {
     ref.read(settingsViewModelProvider.notifier).logOut();
-    context.goNamed(LoginScreen.routeName);
+    Navigator.of(context).pop();
   }
 
   @override

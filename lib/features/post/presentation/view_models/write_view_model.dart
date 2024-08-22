@@ -27,7 +27,7 @@ class WriteViewModel extends AsyncNotifier {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final newPost = Post(
-        userId: _authRepository.user!.id,
+        userId: _authRepository.currentUser.id,
         emotion: emotion,
         description: description,
         date: DateTime.now(),

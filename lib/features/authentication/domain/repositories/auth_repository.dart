@@ -1,8 +1,8 @@
 import 'package:moodtracker/features/authentication/domain/entities/app_user.dart';
 
 abstract class AuthRepository {
-  AppUser? get user;
-  bool get loggedIn => user != null;
+  Stream<AppUser> get user;
+  AppUser get currentUser;
 
   Future<void> createUser({
     required String email,

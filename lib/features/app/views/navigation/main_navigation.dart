@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moodtracker/features/navigation/navigation_tab.dart';
+import 'package:moodtracker/features/app/views/navigation/navigation_tab.dart';
 import 'package:moodtracker/features/post/presentation/views/calendar_screen.dart';
 import 'package:moodtracker/features/post/presentation/views/write_screen.dart';
 
 class MainNavigation extends StatefulWidget {
-  const MainNavigation({
-    super.key,
-    required this.tab,
-  });
-
-  final NavigationTab tab;
+  const MainNavigation({super.key});
 
   @override
   State<MainNavigation> createState() => _MainNavigationState();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moodtracker/features/navigation/navigation_tab.dart';
+import 'package:moodtracker/features/app/views/navigation/navigation_tab.dart';
 import 'package:moodtracker/features/post/domain/entities/emotion.dart';
 import 'package:moodtracker/features/post/presentation/view_models/write_view_model.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/base_scaffold.dart';

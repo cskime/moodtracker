@@ -7,12 +7,41 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moodtracker/moodtracker_app.dart';
+import 'package:moodtracker/features/app/views/moodtracker_app.dart';
+import 'package:moodtracker/features/authentication/domain/entities/app_user.dart';
+import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
+
+class AuthRepositoryMock extends AuthRepository {
+  @override
+  Future<void> createUser({required String email, required String password}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> signIn({required String email, required String password}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> signOut() {
+    throw UnimplementedError();
+  }
+
+  @override
+  AppUser get currentUser => throw UnimplementedError();
+
+  @override
+  Stream<AppUser> get user => throw UnimplementedError();
+}
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MoodtrackerApp());
+    await tester.pumpWidget(
+      MoodtrackerApp(
+        authRepository: AuthRepositoryMock(),
+      ),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
