@@ -11,8 +11,6 @@ import 'package:moodtracker/utils/date_time_comparator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends ConsumerStatefulWidget {
-  static const routeUrl = "/list";
-
   const CalendarScreen({super.key});
 
   @override

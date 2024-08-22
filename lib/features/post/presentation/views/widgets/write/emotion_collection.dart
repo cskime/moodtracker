@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:moodtracker/features/post/domain/entities/emotion.dart';
 
-class EmotionCollection extends StatefulWidget {
+class EmotionCollection extends StatelessWidget {
   const EmotionCollection({
     super.key,
-    required this.initialValue,
+    required this.currentEmotion,
     required this.onEmotionSelected,
   });
 
-  final Emotion initialValue;
+  final Emotion currentEmotion;
   final void Function(Emotion emotion) onEmotionSelected;
 
-  @override
-  State<EmotionCollection> createState() => _EmotionCollectionState();
-}
-
-class _EmotionCollectionState extends State<EmotionCollection> {
-  late var _currentData = widget.initialValue;
-
   void _onEmotionTap(Emotion data) {
-    widget.onEmotionSelected(data);
-    setState(() {
-      _currentData = data;
-    });
+    onEmotionSelected(data);
   }
 
   Color iconColor(Emotion emption) =>
-      _currentData == emption ? emption.tintColor : Colors.grey.shade300;
+      currentEmotion == emption ? emption.tintColor : Colors.grey.shade300;
 
   @override
   Widget build(BuildContext context) {

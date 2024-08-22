@@ -8,9 +8,6 @@ import 'package:moodtracker/features/authentication/presentation/views/widgets/e
 import 'package:moodtracker/utils/navigator_extension.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const routeName = "login";
-  static const routeUrl = "/login";
-
   const LoginScreen({super.key});
 
   @override

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/app/views/moodtracker_app.dart';
 import 'package:moodtracker/features/authentication/data/data_providers/auth_provider/firebase_auth_provider.dart';
 import 'package:moodtracker/features/authentication/data/repositories/auth_repository.dart';
+import 'package:moodtracker/features/post/data/providers/firestore_provider.dart';
+import 'package:moodtracker/features/post/data/repositories/post_repository_impl.dart';
 import 'package:moodtracker/firebase_options.dart';
 
 void main() async {
@@ -16,10 +18,15 @@ void main() async {
   final firebaseAuthProvider = FirebaseAuthProvider();
   final authRepository = AuthRepositoryImpl(authProvider: firebaseAuthProvider);
 
+  final firestoreProvider = FirestoreProvider();
+  final postRepository =
+      PostRepositoryImpl(databaseProvider: firestoreProvider);
+
   runApp(
     ProviderScope(
       child: MoodtrackerApp(
         authRepository: authRepository,
+        postRepository: postRepository,
       ),
     ),
   );

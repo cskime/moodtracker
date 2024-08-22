@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:moodtracker/features/app/views/moodtracker_app.dart';
 import 'package:moodtracker/features/authentication/domain/entities/app_user.dart';
 import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:moodtracker/features/post/domain/entities/post.dart';
+import 'package:moodtracker/features/post/domain/repositories/post_repository.dart';
 
 class AuthRepositoryMock extends AuthRepository {
   @override
@@ -34,12 +36,30 @@ class AuthRepositoryMock extends AuthRepository {
   Stream<AppUser> get user => throw UnimplementedError();
 }
 
+class PostRepositoryMock extends PostRepository {
+  @override
+  Future<void> createPost(Post post) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deletePost(Post post) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<List<Post>> fetchPosts({required String userId}) {
+    throw UnimplementedError();
+  }
+}
+
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(
       MoodtrackerApp(
         authRepository: AuthRepositoryMock(),
+        postRepository: PostRepositoryMock(),
       ),
     );
 

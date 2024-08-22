@@ -5,15 +5,19 @@ import 'package:moodtracker/features/app/views/navigation/main_navigation.dart';
 import 'package:moodtracker/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:moodtracker/features/authentication/presentation/blocs/login/login_cubit.dart';
 import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
+import 'package:moodtracker/features/post/domain/repositories/post_repository.dart';
+import 'package:moodtracker/features/post/presentation/blocs/write/write_cubit.dart';
 import 'package:moodtracker/themes/light_theme.dart';
 
 class MoodtrackerApp extends StatelessWidget {
   const MoodtrackerApp({
     super.key,
     required this.authRepository,
+    required this.postRepository,
   });
 
   final AuthRepository authRepository;
+  final PostRepository postRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,20 @@ class MoodtrackerApp extends StatelessWidget {
                       LoginCubit(authRepository: authRepository),
                   child: const LoginScreen(),
                 ),
-              AppStatus.authenticated => const MainNavigation(),
+              AppStatus.authenticated => RepositoryProvider(
+                  create: (context) => postRepository,
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => WriteCubit(
+                          authRepository: authRepository,
+                          postRepository: postRepository,
+                        ),
+                      ),
+                    ],
+                    child: const MainNavigation(),
+                  ),
+                ),
             },
           ),
         ),
