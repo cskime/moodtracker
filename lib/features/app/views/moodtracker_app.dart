@@ -6,7 +6,9 @@ import 'package:moodtracker/features/authentication/domain/repositories/auth_rep
 import 'package:moodtracker/features/authentication/presentation/blocs/login/login_cubit.dart';
 import 'package:moodtracker/features/authentication/presentation/views/login_screen.dart';
 import 'package:moodtracker/features/post/domain/repositories/post_repository.dart';
+import 'package:moodtracker/features/post/presentation/blocs/calendar/calendar_cubit.dart';
 import 'package:moodtracker/features/post/presentation/blocs/write/write_cubit.dart';
+import 'package:moodtracker/features/settings/presentation/blocs/settings_cubit.dart';
 import 'package:moodtracker/themes/light_theme.dart';
 
 class MoodtrackerApp extends StatelessWidget {
@@ -43,6 +45,17 @@ class MoodtrackerApp extends StatelessWidget {
                         create: (context) => WriteCubit(
                           authRepository: authRepository,
                           postRepository: postRepository,
+                        ),
+                      ),
+                      BlocProvider(
+                        create: (context) => CalendarCubit(
+                          authRepository: authRepository,
+                          postRepository: postRepository,
+                        ),
+                      ),
+                      BlocProvider(
+                        create: (context) => SettingsCubit(
+                          authRepository: authRepository,
                         ),
                       ),
                     ],

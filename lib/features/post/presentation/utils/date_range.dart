@@ -1,4 +1,4 @@
-import 'package:moodtracker/utils/date_time_comparator.dart';
+import 'package:moodtracker/features/post/presentation/utils/date_time_comparator.dart';
 
 class DateRange {
   DateRange(this.lowerbound, this.upperbound);

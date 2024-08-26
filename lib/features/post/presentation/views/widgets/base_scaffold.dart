@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moodtracker/features/settings/presentation/blocs/settings_cubit.dart';
 import 'package:moodtracker/features/settings/presentation/views/settings_bottom_sheet.dart';
+import 'package:moodtracker/utils/navigator_extension.dart';
 
 class BaseScaffold extends StatelessWidget {
   const BaseScaffold({
@@ -16,11 +19,18 @@ class BaseScaffold extends StatelessWidget {
   void _onSettingPressed(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => const SettingsBottomSheet(),
+      builder: (_) => SettingsBottomSheet(
+        onLogOutPressed: () => _onLogOutPressed(context),
+      ),
       showDragHandle: true,
       backgroundColor: Colors.white,
       isScrollControlled: true,
     );
+  }
+
+  void _onLogOutPressed(BuildContext context) async {
+    context.read<SettingsCubit>().onLogOutPressed();
+    context.pop();
   }
 
   @override

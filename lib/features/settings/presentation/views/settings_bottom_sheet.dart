@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:moodtracker/features/settings/presentation/view_models/settings_view_model.dart';
-import 'package:moodtracker/utils/navigator_extension.dart';
 
-class SettingsBottomSheet extends ConsumerWidget {
-  const SettingsBottomSheet({super.key});
+class SettingsBottomSheet extends StatelessWidget {
+  const SettingsBottomSheet({
+    super.key,
+    required this.onLogOutPressed,
+  });
 
-  void _onLogOutTap(BuildContext context, WidgetRef ref) async {
-    ref.read(settingsViewModelProvider.notifier).logOut();
-    context.pop();
-  }
+  final Function() onLogOutPressed;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -21,7 +18,7 @@ class SettingsBottomSheet extends ConsumerWidget {
           ListTile(
             leading: const Icon(FontAwesomeIcons.arrowRightFromBracket),
             title: const Text("Log out"),
-            onTap: () => _onLogOutTap(context, ref),
+            onTap: onLogOutPressed,
           ),
           const SizedBox(height: 24),
         ],

@@ -48,7 +48,7 @@ class PostRepositoryMock extends PostRepository {
   }
 
   @override
-  Stream<List<Post>> fetchPosts({required String userId}) {
+  Stream<List<Post>> posts({required String userId}) {
     throw UnimplementedError();
   }
 }

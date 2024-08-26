@@ -1,12 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moodtracker/features/post/data/providers/database_provider.dart';
-import 'package:moodtracker/features/post/data/providers/firestore_provider.dart';
 import 'package:moodtracker/features/post/domain/entities/post.dart';
 import 'package:moodtracker/features/post/domain/repositories/post_repository.dart';
-
-final postRepositoryProvider = Provider(
-  (ref) => PostRepositoryImpl(databaseProvider: FirestoreProvider()),
-);
 
 class PostRepositoryImpl extends PostRepository {
   PostRepositoryImpl({
@@ -21,7 +15,7 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
-  Stream<List<Post>> fetchPosts({required String userId}) {
+  Stream<List<Post>> posts({required String userId}) {
     return databaseProvider.fetchPostsByUserId(userId);
   }
 

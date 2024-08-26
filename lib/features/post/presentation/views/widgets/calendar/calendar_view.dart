@@ -3,7 +3,7 @@ import 'package:moodtracker/features/post/domain/entities/emotion.dart';
 import 'package:moodtracker/features/post/domain/entities/post.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/calendar/calendar_cell.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/calendar/calendar_event_cell.dart';
-import 'package:moodtracker/utils/date_range.dart';
+import 'package:moodtracker/features/post/presentation/utils/date_range.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends StatelessWidget {

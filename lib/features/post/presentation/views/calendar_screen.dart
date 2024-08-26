@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moodtracker/features/post/domain/entities/post.dart';
-import 'package:moodtracker/features/post/presentation/view_models/calendar_view_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moodtracker/features/post/presentation/blocs/calendar/calendar_cubit.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/base_scaffold.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/calendar/calendar_app_bar_title.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/calendar/calendar_day_list.dart';
 import 'package:moodtracker/features/post/presentation/views/widgets/calendar/calendar_view.dart';
-import 'package:moodtracker/utils/date_time_comparator.dart' as date_comparator;
-import 'package:moodtracker/utils/date_time_comparator.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:moodtracker/features/post/presentation/utils/date_time_comparator.dart';
 
-class CalendarScreen extends ConsumerStatefulWidget {
+class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CalendarScreenState();
+  State<CalendarScreen> createState() => _CalendarScreenState();
 }
 
-class _CalendarScreenState extends ConsumerState<CalendarScreen> {
+class _CalendarScreenState extends State<CalendarScreen> {
   late PageController _pageController;
-  var _focusedDay = DateTime.now();
-  var _selectedDay = DateTime.now();
+
+  void _onCalendarCreated(PageController pageController) {
+    _pageController = pageController;
+  }
 
   void _movePrevMonth() {
     _pageController.previousPage(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
-    setState(() {});
   }
 
   void _moveNextMonth() {
@@ -35,95 +33,62 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
-    setState(() {});
-  }
-
-  void _onTodayPressed() {
-    setState(() {
-      _focusedDay = DateTime.now();
-      _selectedDay = DateTime.now();
-    });
-  }
-
-  void _onCalendarCreated(PageController pageController) {
-    _pageController = pageController;
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = selectedDay;
-    });
-  }
-
-  void _onPageChanged(DateTime focusedDay) {
-    setState(() {
-      _focusedDay = focusedDay;
-    });
-  }
-
-  void _onDeletePressed(Post post) async {
-    await ref.read(calendarViewModelProvider.notifier).deletePost(post);
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(calendarViewModelProvider);
+    final state = context.watch<CalendarCubit>().state;
+    final firstDay = context.read<CalendarCubit>().firstDay;
+    final lastDay = DateTime.now();
 
-    return state.when(
-      data: (posts) {
-        final firstDay = posts.fold(
-          DateTime.now(),
-          (previousValue, element) =>
-              date_comparator.min(previousValue, element.date),
-        );
-        final lastDay = DateTime.now();
-
-        return BaseScaffold(
-          appBarTitle: CalendarAppBarTitle(
-            current: _focusedDay,
-            hasNext: !isSameMonth(_focusedDay, lastDay),
-            hasPrev: !isSameMonth(_focusedDay, firstDay),
-            onLeftPressed: _movePrevMonth,
-            onRightPressed: _moveNextMonth,
-          ),
-          appBarActions: [
-            IconButton(
-              onPressed: _onTodayPressed,
-              icon: const Icon(Icons.today),
-            ),
-          ],
-          body: Column(
-            children: [
-              CalendarView(
-                focusedDay: _focusedDay,
-                selectedDay: _selectedDay,
-                firstDay: firstDay,
-                lastDay: lastDay,
-                posts: posts,
-                onCalendarCreated: _onCalendarCreated,
-                onDaySelected: _onDaySelected,
-                onPageChanged: _onPageChanged,
-              ),
-              Expanded(
-                child: CalendarDayList(
-                  posts: posts
-                      .where((post) => isSameDay(post.date, _selectedDay))
-                      .toList(),
-                  onDeletePressed: _onDeletePressed,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-      error: (error, stackTrace) => Center(
-        child: Text(
-          error.toString(),
-        ),
+    return BaseScaffold(
+      appBarTitle: CalendarAppBarTitle(
+        current: state.focusedDay,
+        hasNext: !isSameMonth(state.focusedDay, lastDay),
+        hasPrev: !isSameMonth(state.focusedDay, firstDay),
+        onLeftPressed: _movePrevMonth,
+        onRightPressed: _moveNextMonth,
       ),
-      loading: () => const Center(
-        child: CircularProgressIndicator.adaptive(),
+      appBarActions: [
+        IconButton(
+          onPressed: context.read<CalendarCubit>().onTodayPressed,
+          icon: const Icon(Icons.today),
+        ),
+      ],
+      body: Column(
+        children: [
+          CalendarView(
+            focusedDay: state.focusedDay,
+            selectedDay: state.selectedDay,
+            firstDay: firstDay,
+            lastDay: lastDay,
+            posts: state.posts,
+            onCalendarCreated: _onCalendarCreated,
+            onDaySelected: context.read<CalendarCubit>().onDaySelected,
+            onPageChanged: context.read<CalendarCubit>().onMonthChanged,
+          ),
+          Expanded(
+            child: CalendarDayList(
+              posts: state.postsOnDay,
+              onEditPressed: context.read<CalendarCubit>().onEditPressed,
+              onDeletePressed: context.read<CalendarCubit>().onDeletePressed,
+              isEditMode: state.isEditMode,
+            ),
+          ),
+        ],
       ),
     );
+
+    // return state.when(
+    //   data: (posts) {},
+    //   error: (error, stackTrace) => Center(
+    //     child: Text(
+    //       error.toString(),
+    //     ),
+    //   ),
+    //   loading: () => const Center(
+    //     child: CircularProgressIndicator.adaptive(),
+    //   ),
+    // );
   }
 }

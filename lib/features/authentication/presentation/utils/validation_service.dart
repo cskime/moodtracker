@@ -1,7 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final validationServiceProvider = Provider((ref) => ValidationService());
-
 class ValidationService {
   String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
