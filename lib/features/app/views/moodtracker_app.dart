@@ -23,8 +23,11 @@ class MoodtrackerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AuthRepository>(
-      create: (context) => authRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: authRepository),
+        RepositoryProvider.value(value: postRepository),
+      ],
       child: BlocProvider(
         create: (context) => AppBloc(authRepository: authRepository),
         child: MaterialApp(
@@ -33,34 +36,32 @@ class MoodtrackerApp extends StatelessWidget {
             selector: (state) => state.status,
             builder: (context, state) => switch (state) {
               AppStatus.unauthenticated => BlocProvider(
-                  create: (context) =>
-                      LoginCubit(authRepository: authRepository),
+                  create: (context) => LoginCubit(
+                    authRepository: authRepository,
+                  ),
                   child: const LoginScreen(),
                 ),
-              AppStatus.authenticated => RepositoryProvider(
-                  create: (context) => postRepository,
-                  child: MultiBlocProvider(
-                    providers: [
-                      BlocProvider(
-                        create: (context) => WriteCubit(
-                          authRepository: authRepository,
-                          postRepository: postRepository,
-                        ),
+              AppStatus.authenticated => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => WriteCubit(
+                        authRepository: authRepository,
+                        postRepository: postRepository,
                       ),
-                      BlocProvider(
-                        create: (context) => CalendarCubit(
-                          authRepository: authRepository,
-                          postRepository: postRepository,
-                        ),
+                    ),
+                    BlocProvider(
+                      create: (context) => CalendarCubit(
+                        authRepository: authRepository,
+                        postRepository: postRepository,
                       ),
-                      BlocProvider(
-                        create: (context) => SettingsCubit(
-                          authRepository: authRepository,
-                        ),
+                    ),
+                    BlocProvider(
+                      create: (context) => SettingsCubit(
+                        authRepository: authRepository,
                       ),
-                    ],
-                    child: const MainNavigation(),
-                  ),
+                    ),
+                  ],
+                  child: const MainNavigation(),
                 ),
             },
           ),
